@@ -28,7 +28,7 @@ for (var i = 0; i < numEvents; i++){
   card.className = "card";
 
   var text =
-                '<img src="../images/cu.png" alt="Event Image" style="width:100%">' +
+                '<img src="cu" alt="Event Image" style="width:100%">' +
                 '<div class="container" name="' + i.toString() + '" id="info">' +
                   '<h4><b>' + event[i].eventName + '</b></h4>' +
                     //'<p>' + event[i].eventDescription + '</p>' +
