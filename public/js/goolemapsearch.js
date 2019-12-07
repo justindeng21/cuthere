@@ -86,34 +86,43 @@ east:  -105.210,
 
 var boulder = {lat:40.015,lng:-105.270};//will be used for starting refrance location
 
+function initmap() {}
 
-function initmap(){
-  var options={
-  zoom:13,
-  center:boulder,
-  
-  styles: [{"featureType":"all","elementType":"geometry","stylers":[{"color":"#202c3e"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"gamma":0.01},{"lightness":20},{"weight":"1.39"},{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"weight":"0.96"},{"saturation":"9"},{"visibility":"on"},{"color":"#000000"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"lightness":30},{"saturation":"9"},{"color":"#29446b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":20}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"lightness":20},{"saturation":-20}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":10},{"saturation":-30}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#193a55"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"saturation":25},{"lightness":25},{"weight":"0.01"}]},{"featureType":"water","elementType":"all","stylers":[{"lightness":-20}]}]
- }
- var bounds_auto=new 
- google.maps.LatLngBounds(new google.maps.LatLng(40.020,-105.320),
- new google.maps.LatLng(39.999,-105.210));
- var optinoauto={
-  componentRestrictions: {country: "us"},
-   //bounds: bounds_auto,
-   //strictBounds: true
-}
-	//var init_lat=$(.'longitude_result').val() //get the lat result and set to our initia
-	//var 
-	map = new google.maps.Map(document.getElementById('map'),options); //set the map
-	geocodejs=new google.maps.Geocoder();
-	var input=document.getElementById('search_location'); //auto complete
-	var autocomplete=new google.maps.places.Autocomplete(input,optinoauto);
-	//document.getElementById('search_button').addEventListener("click",findlat_alt());
+$( () => {
+	initmap = function(){
+		var options={
+		zoom:13,
+		center:boulder,
+		
+		styles: [{"featureType":"all","elementType":"geometry","stylers":[{"color":"#202c3e"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"gamma":0.01},{"lightness":20},{"weight":"1.39"},{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"weight":"0.96"},{"saturation":"9"},{"visibility":"on"},{"color":"#000000"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"lightness":30},{"saturation":"9"},{"color":"#29446b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":20}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"lightness":20},{"saturation":-20}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":10},{"saturation":-30}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#193a55"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"saturation":25},{"lightness":25},{"weight":"0.01"}]},{"featureType":"water","elementType":"all","stylers":[{"lightness":-20}]}]
+	   }
+	   var bounds_auto=new 
+	   google.maps.LatLngBounds(new google.maps.LatLng(40.020,-105.320),
+	   new google.maps.LatLng(39.999,-105.210));
+	   var optinoauto={
+		componentRestrictions: {country: "us"},
+		 //bounds: bounds_auto,
+		 //strictBounds: true
+	  		}
+		  //var init_lat=$(.'longitude_result').val() //get the lat result and set to our initia
+		  //var 
+		  map = new google.maps.Map(document.getElementById('map'),options); //set the map
+		  geocodejs=new google.maps.Geocoder();
+		  var input=document.getElementById('search_location'); //auto complete
+		  var autocomplete=new google.maps.places.Autocomplete(input,optinoauto);
+		  //document.getElementById('search_button').addEventListener("click",findlat_alt());
+	  
+	  		}
+		}
 
-}
+)
+
+
+
 var address
 var lat
 var lng
+
 //document.getElementById('search_button').second.addEventListener("click",findlat_alt());
 function findlat_alt(){
 	console.log('hello')
