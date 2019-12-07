@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--CU There-->
+<html>
+	<head>
+		<title>CU There</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        
+ 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        
+
+        <style>
+            a[href^="http://maps.google.com/maps"]{display:none !important}
+            a[href^="https://maps.google.com/maps"]{display:none !important}
+
+            .gmnoprint a, .gmnoprint span, .gm-style-cc {
+                display:none;
+            }
+            .gmnoprint div {
+                background:none !important;
+            }
+			.sidenav {
+				height: 100%;
+				width: 0;
+				position: fixed;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				background-color: black;
+				overflow-x: hidden;
+				transition: 0.5s;
+				padding-top: 60px;
+                opacity: .9;
+                border-radius: 0px 50px 50px 0px
+
+			}
+			
+			.sidenav a {
+				padding: 8px 8px 8px 32px;
+				text-decoration: none;
+				font-size: 25px;
+				color: #818181;
+				display: block;
+				transition: 0.3s;
+                
+			}
+			
+			.sidenav a:hover {
+				color: #f1f1f1;
+			}
+			.sidenav .closebtn {
+				position: absolute;
+				top: 0;
+				right: 25px;
+				font-size: 36px;
+				margin-left: 50px;
+			}
+			@media screen and (max-height: 450px) {
+				.sidenav {padding-top: 15px;}
+				.sidenav a {font-size: 18px;}
+			}
+            
+            .wrapper {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+
+            .content {
+            position: absolute;
+            padding: 1px;
+            top: 25px;
+            left: 25px;
+            background: white;
+            opacity: 1;
+            border-radius: 25px;
+            }
+            
+            .content-right {
+            position: absolute;
+            padding: 1px;
+            top: 25px;
+            right: 25px;
+            background: white;
+            opacity: 1;
+            border-radius: 25px;
+            }
+            .content-main{
+            position: absolute;
+            padding: 4px;
+            top: 50px;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            opacity: 1;
+            border-radius: 25px;
+            }
+            .content-form{
+            position: relative;
+            }
+            
+            #map{
+                width: 100%;
+                height: 400px;
+                border-radius: 25px;
+            }
+            input[type=text]{
+            padding-top: 5px ;
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px  	gray-black ;
+            border-radius: 10px;
+            }
+            #addres_result_id{
+                width: 500px;
+                height: 200px;
+            }
+
+            .content-map{
+                height: 100%;
+                width: 100%;
+            position: absolute;
+            padding: 4px;
+            top: 400px;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            opacity: 1;
+            }
+
+            .content-search{
+            position: absolute;
+            padding-top: 20px;
+            top: 120px;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            background: clear;
+            opacity: 1;
+            border-radius: 0px;
+            }
+            .content-center{
+                left: 50;
+                margin-right: -50%;
+            }
+
+            .button5 {background-color: rgba(207, 184, 124, 1);
+            width: 100%;}
+
+            .textbox {border-radius:8px;
+            width: 100%;}
+            
+            .invisibleDiv{
+                opacity: 0;
+            }
+            
+            .modal-backdrop {
+                background-color: rgba(207, 184, 124, 1);
+            }
+		</style>
+	</head>
+	<body>
+    
+    <script>
+        var query = '<%-stringifedObject%>'
+    </script>
+
+	<div id="mySidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		  <a href="/home">Map</a>
+		  <a href="/events">Events</a>
+		  <a href="#">Search</a>
+	</div>
+    
+    <div>
+        <div class="content">
+            <p class="my-2 col-2" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</p>
+        </div>
+      
+        <div class="content-main"> <img src="cutherelogo"  alt="ll"> </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="container">
+		<form method="POST" action="/application/done">
+            
+
+            <div id="map"></div>
+            <br>
+            <div class="form-group">
+                <label for="input-article-title">Event Title</label>
+                <input type="eventtitle" class="form-control" id="eventTitle"  placeholder="Title" name = "eventName">
+              </div>
+            <div class ="form-row">
+                <div class="col">
+                    <div class="form-group">
+                            <label for="timeStart">Time Start</label>
+                            <input type="time" class="form-control" id="timeStart" name = "timeStart">
+                    </div> 
+                </div>
+            </div>
+            
+            <div class ="form-row">
+                <div class="col">
+                    <div class="form-group">
+                            <label for="month">Time End</label>
+                            <input type="time" class="form-control" id="timeEnd" name = "timeEnd">
+                    </div> 
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="col">
+                    <label for="hourStart">Date</label>
+                    <input type="date" class="form-control" id="date" name = "Date">
+                </div>
+                
+            </div>
+            <br>
+            <div class='form-row'>
+                <div class="col">
+                    <label for="description">Event Description</label>
+                    <textarea  id='des' rows="4" cols="157" name="description" class="textbox"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                    <button id="my_submit_button" class="btn button5" disabled>Apply</button>
+           
+            </div>
+                <input type="text" name="Address" id="address_result_id" style="visibility: hidden"><br>
+                <input type="text" name="lng" id="longitude_result_id" style="visibility: hidden"><br>
+                <input type="text" name="lat" id="latitude_result_id" style="visibility: hidden"><br>
+                <input type="text" name="orgID" id="org_id" style="visibility: hidden"><br>
+        </form>
+    </div>
+    
+    
+
+    <div class="content-search">
+            <form class="form-inline" action="javascript:void(0);">
+                <input class="form-control dark" id="search_location" type="text" placeholder="Search location">
+                <button class="btn btn-dark" id="search_button" type="button" onclick="findlat_alt();">Search</button>
+            </form>
+    </div> 
+
+    <div class="modal fade" id="login" tabindex="-1" role="dialog" >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" >Enter Key Code and Password</h5>
+                </div>
+                <div class="modal-body">
+                                <input class="form-control dark" type="password" id="id_organizer" placeholder="Key Code">
+                                <br>
+                                <input class="form-control dark" type="password" id="password_organizer" placeholder="Password">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id='loginButton' onclick="verify()">Login</button>
+                </div>
+              </div>
+            </div>
+    </div>
+
+
+
+    </body>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLX8GxL_S3NmXNLcQdXtcvTkhjmeBhivk&libraries=places&callback=initmap"
+    async defer>
+    </script>
+ 
+    <script type='text/javascript'src="js/goolemapsearch.js" ></script> 
+</html>
