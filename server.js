@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-
 ////////////////////////////////////////////////
 /*
 	Database connection to a mySQL database
@@ -167,6 +166,11 @@ app.get('/cutherelogo',function(req,res)
 	res.sendFile(__dirname + '/public/images/cutherelogo.png')
 })
 
+app.get('/c4c',function(req,res)
+{
+	res.sendFile(__dirname + '/public/images/c4c.png')
+})
+
 app.get('/koelbel',function(req,res)
 {
 	res.sendFile(__dirname + '/public/images/koelbel.png')
@@ -225,6 +229,11 @@ app.get('/norlin',function(req,res)
 app.get('/rec',function(req,res)
 {
 	res.sendFile(__dirname + '/public/images/rec.png')
+})
+
+app.get('/cu',function(req,res)
+{
+	res.sendFile(__dirname + '/public/images/cu.png')
 })
 ////////////////////////////////////////////////'
 app.listen(port)
