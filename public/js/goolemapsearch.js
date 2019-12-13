@@ -12,7 +12,10 @@ $(window).on('load',function(){
 	$('#login').modal('show');
 });
 
-
+$('#login').modal({
+	backdrop: 'static',
+	keyboard: false
+})
 
 
 
@@ -25,10 +28,7 @@ $(document).ready(function(){
 		if(e.keyCode==13)
 		$('#loginButton').click();
 	})
-	$('#login').modal({
-		backdrop: 'static',
-		keyboard: false
-	})
+
     $('#eventTitle').change(function(e){
 		if(eventName.value != '' && eventStart.value != '' && eventEnd.value != '' && date.value != '' && addy.value != '')
 			button.disabled = false
@@ -70,6 +70,25 @@ function verify()
 	alert('Login Information is incorrect')
 	return
 }
+
+function verifyAndDelete()
+{
+	var id_input = document.getElementById('id_organizer').value
+	var pass_input = document.getElementById('password_organizer').value
+	console.log(id_input,pass_input)
+	for(i = 0; i < loginInfo.length; i++)
+	{
+		if(loginInfo[i].organizerId == id_input && loginInfo[i].organizerPassword == pass_input)
+		{
+			$('#login').modal('toggle')
+			orgID = loginInfo[i].organizerId
+			return
+		}
+	}
+	alert('Login Information is incorrect')
+	return
+}
+
 
 
 var map; //will be used foor map object

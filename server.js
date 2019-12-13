@@ -72,7 +72,7 @@ app.get('/',function(req,res)
 				throw err
 			else
 			res.render('home', { stringifedObject : JSON.stringify(rows)})
-				//console.log(rows[0])
+				console.table(rows)
 	})
 })
 
@@ -117,6 +117,35 @@ app.get('/application',function(req,res)
 	})
 })
 
+app.get('/delete', function(req,res)
+{
+	connection.query('select organizerId, organizerPassword from organizers',function(err,rows){
+		if(err)throw err
+		else{
+			connection.query('select * from eventDetails',function(err,results)
+			{
+				if(err)throw err
+				else{
+					var x = JSON.stringify(rows) + "/****/" + JSON.stringify(results)
+				res.render('delete', { stringifedObject : x})
+				}
+				
+			})
+		}
+		
+	})
+})
+app.post('/delete/done',function(req,res)
+{
+	var dbquery = 'delete  from eventDetails where eventID = ' + req.body.eventID
+	connection.query(dbquery, function(err){
+		if(err)
+		throw err
+	})
+	res.render('submitted')
+	res.end()
+})
+
 app.get('/submitted',function(req,res)
 {
 	res.render('submitted')
@@ -133,7 +162,7 @@ app.post('/application/done',function(req, res){
 	const timeEnd = req.body.timeEnd + ':00'
 	const date = req.body.Date
 	const description = req.body.description
-	var eventID_ = Math.floor(Math.random()*100000+1)
+	var eventID_ = Math.floor(Math.random()*100000+1 )
 	var eventID = eventID_.toString()
 	var randomIndex = Math.floor(Math.random() * 6)
 	var OrganizerID = req.body.orgID
@@ -143,7 +172,7 @@ app.post('/application/done',function(req, res){
 	var dbQuery = "INSERT INTO eventDetails (eventID, organizerID, eventName, dateOfEvent, timeStart, timeEnd, eventDescription, address, lat, lng)" +
 	' VALUES (' +eventID+","+ OrganizerID +",'"+ clear(eventName) + "','" + date + "','" + timeStart+ "','" + timeEnd +"','" + clear(description) + "','" + clear(address) + "'," + lat + "," + lng +");"
 
-	connection.query(dbQuery, function(err,rows)
+	connection.query(dbQuery, function(err)
 	{
 		if(err)
 			throw(err)
@@ -225,6 +254,16 @@ app.get('/norlin',function(req,res)
 app.get('/rec',function(req,res)
 {
 	res.sendFile(__dirname + '/public/images/rec.png')
+})
+
+app.get('/cu',function(req,res)
+{
+	res.sendFile(__dirname + '/public/images/cu.png')
+})
+
+app.get('/c4c',function(req,res)
+{
+	res.sendFile(__dirname + '/public/images/c4c.png')
 })
 ////////////////////////////////////////////////'
 app.listen(port)

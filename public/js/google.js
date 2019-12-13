@@ -1,6 +1,6 @@
 var map //the map
 var events = JSON.parse(eventString)// use to access events
-
+console.table(events)
 var eventMarkers = [] //event markers array
 
 
@@ -59,7 +59,7 @@ function initMap(){
     })
 
     createEventMarkers()
-    createBuildingMarkers()
+
 
     var LOGO = new google.maps.Marker({
         position: logo,
@@ -77,24 +77,11 @@ function initMap(){
     MarkersZoomFunction(zoom)
     map.setZoom(16)
     initialization = false
-    hideBuildings()
-    
+
+
 }
 
-function createBuildingMarkers()
-{
-    for(i = 0; i < positions.length; i++)
-    {
-        var coordinates = new lat_lng(positions[i].lat, positions[i].lng)
-        var marker = new google.maps.Marker({
-            map: map,
-            position: coordinates,
-            icon: '/' + positions[i].name,
-            animation: google.maps.Animation.DROP,
-        });
-        buildingMarkers.push(marker)
-    }
-}
+
 
 function createEventMarkers()
 {
@@ -154,43 +141,22 @@ function processEventTime(event)
 
 function processEventDate(event)
 {
-    var month, day
+    var month, day, year
+    year = event.dateOfEvent[2]+event.dateOfEvent[3]
     if(event.dateOfEvent[5] == '0') month =  event.dateOfEvent[6]
     else month = event.dateOfEvent[5]  + event.dateOfEvent[6]
     if(event.dateOfEvent[8] == '0') day = event.dateOfEvent[9]
     else day = event.dateOfEvent[8] +event.dateOfEvent[9] 
-    event.dateOfEvent = month + '-' + day + '-2019'
+    event.dateOfEvent = month + '/' + day + '/' + year
 }
 
-function hideBuildings()
-{
-    for(i = 0; i < buildingMarkers.length; i++)
-    {
-        buildingMarkers[i].setVisible(false)
-    }
-}
 
 
 function MarkersZoomFunction(zoom)
 {
     markerWidth = (zoom/7)*20
     markerHeight = (zoom/7)*20
-    if(state == 'buildings' || initialization == true)
-        for(i = 0; i < buildingMarkers.length; i++)
-        {
-            if(zoom == 14 && buildingMarkers[i].getVisible() == true)
-            {
-                buildingMarkers[i].setVisible(false)
-            }
-            if(zoom == 15 && buildingMarkers[i].getVisible() == false)
-            {
-                buildingMarkers[i].setVisible(true)
-            }
-            buildingMarkers[i].setIcon({
-                url: buildingMarkers[i].icon,
-                scaledSize: new google.maps.Size(markerWidth, markerHeight)
-            });
-        }
+
     if(state == 'events')
     for(i = 0; i < eventMarkers.length; i++)
     {
@@ -222,11 +188,7 @@ function toggleVisibility()
         {
             eventMarkers[i].setVisible(false);
         }
-        for(i = 0; i < buildingMarkers.length; i++)
-        {
-            buildingMarkers[i].setVisible(true)
-            buildingMarkers[i].setAnimation(google.maps.Animation.DROP)
-        }
+
         state = 'buildings'
         
     }
@@ -236,10 +198,6 @@ function toggleVisibility()
         {
             eventMarkers[i].setVisible(true);
             eventMarkers[i].setAnimation(google.maps.Animation.DROP)
-        }
-        for(i = 0; i < buildingMarkers.length; i++)
-        {
-            buildingMarkers[i].setVisible(false)
         }
         state = 'events'
     }
@@ -251,17 +209,19 @@ function createEventInfoWindow(marker,event)
     marker.addListener('click', function()
     {
         document.getElementById('eventTitle').innerHTML = event.eventName  
-        document.getElementById('eventDescription').innerHTML = 'Description: ' + event.eventDescription
-        document.getElementById('date').innerHTML = 'Date: ' + event.dateOfEvent
-        document.getElementById('start').innerHTML = 'Begins: ' + event.timeStart
-        document.getElementById('stop').innerHTML = 'Ends: ' +event.timeEnd
-        
+        document.getElementById('eventDescription').innerHTML  = event.eventDescription
+        document.getElementById('date').innerHTML = event.dateOfEvent + ', ' + event.timeStart + ' - ' + event.timeEnd
+        document.getElementById('address').innerHTML = event.address
+
+
+
         $(document).ready(function()
         {
             $("#eventWindow").modal('show');
         });
     });
 }
+
 
 
 

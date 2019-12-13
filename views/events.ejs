@@ -236,6 +236,10 @@
 		
 	}
 
+	h1{
+		color: black;
+		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	}
 		</style>
 
 	</head>
@@ -249,7 +253,8 @@
 			<a href="/home">Map</a>
 			<a href="/events">Events</a>
 			<a href="#">Search</a>
-			<a href="/application#">Apply</a>
+			<a href="/application">Apply</a>
+			<a href="/delete">Delete</a>
 		</div>
 
 		<div>
@@ -269,28 +274,36 @@
 
   </div>
 
-	<div class="modal fade" id="eventWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-	    <div class="modal-dialog" role="document">
-	      <div class="modal-content">
-	        <div class="modal-header">
-	          <h5 class="modal-title" id="eventTitle"></h5>
-	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	            <span aria-hidden="true">&times;</span>
-	          </button>
-	        </div>
-	        <div class="modal-body">
-	          <p id='eventDescription'></p>
-	          <p id='date'></p>
-	          <p id='start'></p>
-			  <p id='stop'></p>
-			  <p id='address'></p>
-	        </div>
-	        <div class="modal-footer">
-	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
+  <div class="modal fade" id="eventWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="col-12 modal-title text-center" id="eventTitle"></h1>
+          </button>
+        </div>
+        <div class="modal-body">
+         
+          <div>
+            <p class='col-12 modal-title text-center'> <b>Description: </b> <span id='eventDescription'></span>    </p>
+          </div>
+          <hr>
+          <div>
+            <p class='col-12 modal-title text-center'><b>Date: </b><span id='date'></span> </p>
+          </div>
+          <hr>
+          <div>
+            <p class='col-12 modal-title text-center'><b><span id='address'></span></b> </p>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn hover  col-12 modal-title text-center" data-dismiss="modal">  <img src="cutherelogo"  alt="ll" ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <script>
 		var eventString = '<%-stringifedObject%>'
