@@ -28,10 +28,10 @@ if(process.env.JAWSDB_URL)
 else
 {
 	var connection /*This variable will be used in every query*/ = mysql.createConnection({	
-		host: 'localhost',
-		user: 'root',
-		password: 'password',
-		database: 'CUThere',
+		host: 'cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+		user: 'eledsxqncrtlhzq1',
+		password: 'gvdvasp0k7y3jwot',
+		database: 'a686zpssyusr5ry4',
 	})
 }
 
